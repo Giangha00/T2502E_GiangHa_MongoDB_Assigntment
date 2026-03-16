@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | Buddy Detail</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-gray-100">
+  <div class="flex">
+    <aside class="w-64 bg-gray-900 text-gray-100 min-h-screen">
+      <div class="px-5 py-4 text-xl font-bold tracking-wide">Admin</div>
+      <nav class="px-2 space-y-1">
+        <a href="/admin/buddy/list" class="block px-3 py-2 rounded hover:bg-gray-800">Buddies</a>
+        <a href="/admin/category/list" class="block px-3 py-2 rounded hover:bg-gray-800">Categories</a>
+      </nav>
+    </aside>
+    <main class="flex-1 p-6 space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-2xl font-semibold text-gray-800">Buddy Detail</h1>
+          <div class="text-sm text-gray-500">Dashboard > Buddies > Detail</div>
+        </div>
+        <div class="space-x-2">
+          <a href="/admin/buddy/edit/<%= buddy && buddy._id %>"
+            class="inline-flex items-center px-4 py-2 rounded bg-indigo-600 text-white hover:bg-indigo-700">Edit</a>
+          <a href="/admin/buddy/list"
+            class="inline-flex items-center px-4 py-2 rounded border border-gray-300 text-gray-700 hover:bg-gray-50">Back</a>
+        </div>
+      </div>
+      <div class="bg-white shadow ring-1 ring-gray-200 rounded-lg p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="md:col-span-1">
+          <% const __img=(buddy && buddy.image) ? (String(buddy.image).startsWith('http') ? buddy.image :
+            ('/static/images/' + String(buddy.image))) : 'https://placehold.co/600x400?text=Buddy' ; %>
+            <img src="<%= __img %>" alt="Image" class="w-full h-auto rounded"
+              onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Buddy';">
+        </div>
+        <div class="md:col-span-2 space-y-4">
+          <div>
+            <div class="text-sm text-gray-500">Name</div>
+            <div class="text-lg font-semibold">
+              <%= buddy && buddy.name %>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <div class="text-sm text-gray-500">Category</div>
+              <div class="text-gray-900">
+                <%= buddy && buddy.category && buddy.category.name ? buddy.category.name : '-' %>
+              </div>
+            </div>
+            <div>
+              <div class="text-sm text-gray-500">Age</div>
+              <div class="text-gray-900">
+                <%= buddy && typeof buddy.age !=='undefined' ? buddy.age : '-' %>
+              </div>
+            </div>
+            <div>
+              <div class="text-sm text-gray-500">Gender</div>
+              <div class="text-gray-900">
+                <%= buddy && buddy.gender ? buddy.gender : '-' %>
+              </div>
+            </div>
+            <div>
+              <div class="text-sm text-gray-500">Breed</div>
+              <div class="text-gray-900">
+                <%= buddy && buddy.breed ? buddy.breed : '-' %>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="text-sm text-gray-500">Description</div>
+            <div class="text-gray-900">
+              <%= buddy && buddy.description ? buddy.description : 'Không có mô tả' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+
+</html>
